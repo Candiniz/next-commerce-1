@@ -1,8 +1,29 @@
+import { ProductType } from "@/types/ProductType";
 
-export default function Home() {
+async function getProducts() {
+  const res = await fetch('https://fakestoreapi.com/products')
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
+
+export default async function Home() {
+
+  const products = await getProducts();
+
+
   return (
-    <div className="text-gray-300">
-      <h1>Next Commerce</h1>
+    <div className="text-gray-300 container bg-slate-600 min-h-screen mx-auto pt-8 px-8 xl:px-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lx:gap-6">
+        
+        {products.map((product: ProductType) => (
+          <div key={product.id}>{product.title}</div>
+        ))}
+        
+      </div>
     </div>
   );
 }
