@@ -20,7 +20,7 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <Navbar />
-          <main className="bg-slate-700 min-h-screen pt-16"> {children} </main>  
+          <main className="bg-slate-700 min-h-screen pt-16"> {children} </main>
         </body>
       </html>
     </ClerkProvider>
