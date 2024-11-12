@@ -1,20 +1,15 @@
 import type { NextConfig } from "next";
 
-module.exports = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'fakestoreapi.com', // O hostname da sua API de imagens
-        port: '', // Deixe vazio, pois a URL não usa uma porta personalizada
-        pathname: '/img/**', // A URL do caminho das imagens
+        hostname: 'files.stripe.com',
+        pathname: '/**', // Isso permite qualquer caminho a partir do domínio
       },
     ],
   },
-};
-
-const nextConfig: NextConfig = {
-  /* config options here */
 };
 
 export default nextConfig;
