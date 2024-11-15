@@ -2,6 +2,7 @@ import { stripe } from "@/lib/stripe"
 import { ProductType } from "@/types/ProductType"
 import { auth } from "@clerk/nextjs/server"
 import prisma from "@/lib/prisma"
+import { NextResponse } from "next/server"
 
 const calculateOrderAmount = (items: ProductType[]) => {
     const totalPrice = items.reduce((acc, item) => {
@@ -20,6 +21,10 @@ export async function POST(req: Request) {
     }
 
     const customerIdTemp = 'cus_RDt10pdiF9ibpk'
+    console.log('Customer ID Temp:', customerIdTemp)
+
+
+
     const total = calculateOrderAmount(items)
 
     const orderData = {
@@ -80,13 +85,14 @@ export async function POST(req: Request) {
                         }
                     }
                 });
+                console.log('Updated Order:', updated_order)
             }
 
             if (!existing_order) {
                 return new Response('Order not found!', { status: 404 })
             }
 
-            return Response.json({ paymentIntent: updated_intent }, { status: 200 })
+            return NextResponse.json({ paymentIntent: updated_intent }, { status: 200 })
         }
     } else {
         const paymentIntent = await stripe.paymentIntents.create({
@@ -100,7 +106,8 @@ export async function POST(req: Request) {
         const newOrder = await prisma.order.create({
             data: orderData
         })
+        console.log('New Order:', newOrder)
 
-        return Response.json({ paymentIntent }, { status: 200 })
+        return NextResponse.json({ paymentIntent }, { status: 200 })
     }
 } 

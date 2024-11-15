@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-import { EmailAddress } from "@clerk/nextjs/server";
 import { IncomingHttpHeaders } from "http";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -59,7 +58,6 @@ async function handler(request:Request) {
             first_name, 
             last_name, 
             email_addresses, 
-            primary_email_address_id, 
             ...attributes
         } = evt.data
 
