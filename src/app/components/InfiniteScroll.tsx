@@ -2,7 +2,7 @@
 
 import { useInView } from "react-intersection-observer"
 import { ProductType } from "@/types/ProductType";
-import { use, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Product from "./Product";
 import { fetchProducts } from "../actions";
 

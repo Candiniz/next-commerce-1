@@ -1,11 +1,9 @@
-import { PrismaClient } from "@prisma/client/extension";
+import { PrismaClient } from '@prisma/client';
 
-declare global {
-    let prisma: PrismaClient | undefined;
+const prisma = global.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV === 'development') {
+    global.prisma = prisma;  // Atribui a instância do Prisma no ambiente de desenvolvimento
 }
-
-const prisma = global.prisma || new PrismaClient
-
-if (process.env.NODE_ENV === "development") global.prisma = prisma;
 
 export default prisma;
