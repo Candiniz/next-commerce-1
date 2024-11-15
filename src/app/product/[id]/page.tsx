@@ -12,24 +12,26 @@ type ProductPageProps = {
 async function getProduct(id: string) {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
         apiVersion: '2024-10-28.acacia',
-      })
-      const produto = await stripe.products.retrieve(id)
-      const price = await stripe.prices.list({
+    })
+    const produto = await stripe.products.retrieve(id)
+    const price = await stripe.prices.list({
         product: produto.id,
-      })
+    })
 
-      return {
+    return {
         id: produto.id,
         price: price.data[0].unit_amount,
         name: produto.name,
-        image: produto.images [0],
+        image: produto.images[0],
         description: produto.description,
         currency: price.data[0].currency,
-      }
+    }
 }
 
-export default async function ProductPage({ params: {id} }: ProductPageProps ) {
-
+// Corrigido o tipo do parâmetro
+export default async function ProductPage({ params }: ProductPageProps) {
+    
+    const { id } = params // O `params` agora é passado diretamente
     const product = await getProduct(id)
 
     return (
