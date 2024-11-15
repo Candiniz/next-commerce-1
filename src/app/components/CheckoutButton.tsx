@@ -11,7 +11,7 @@ export default function CheckoutButton({ totalPrice }: { totalPrice: number } ) 
 
     const handleCheckout = async () => {
         if (!user) {
-            cartStore.toogleCart()
+            cartStore.toggleCart()
             router.push('sign-in')
             return
         }

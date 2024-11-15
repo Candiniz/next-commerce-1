@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  reactStrictMode: false,  // Desativa o Strict Mode no React
   images: {
     remotePatterns: [
       {

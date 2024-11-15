@@ -7,21 +7,19 @@ type CartState = {
     addProduct: (product: ProductType) => void
     removeProduct: (product: ProductType) => void
     isOpen: boolean
-    toogleCart: () => void
+    toggleCart: () => void
     onCheckout: string
-    setCheckout: (checkout:string) => void
+    setCheckout: (checkout: string) => void
     paymentIntent: string
     setPaymentIntent: (paymentIntent: string) => void
 }
 
 export const useCartStore = create<CartState>()(
     persist((set) => ({
-
         cart: [],
 
         addProduct: (item) => set((state) => {
             const existingProduct = state.cart.find((p) => p.id === item.id); // Verificando se o produto já existe no carrinho
-                
             if (existingProduct) { // Se o produto já existe, atualiza a quantidade
                 const updatedCart = state.cart.map((p) => {
                     if (p.id === item.id) {
@@ -37,28 +35,36 @@ export const useCartStore = create<CartState>()(
 
         removeProduct: (item) => set((state) => {
             const existingProduct = state.cart.find((p) => p.id === item.id); // Verificando se o produto já existe no carrinho
-                    
             if (existingProduct && existingProduct.quantity! > 1) {
                 const updatedCart = state.cart.map((p) => {
                     if (p.id === item.id) {
-                        return { ...p, quantity: p.quantity! -1}
+                        return { ...p, quantity: p.quantity! - 1 }
                     }
                     return p
                 })
-                return { cart: updatedCart}
+                return { cart: updatedCart }
             } else {
-                const filteredCart = state.cart.filter((p) => p.id !== item.id) // todos os itens que foram diferentes de 'item.id'
-                return { cart: filteredCart } // nesse caso, 'item.id' é o item removido, e ele retorna todos os outros
+                const filteredCart = state.cart.filter((p) => p.id !== item.id) // Todos os itens que foram diferentes de 'item.id'
+                return { cart: filteredCart } // Nesse caso, 'item.id' é o item removido, e ele retorna todos os outros
             }
         }),
 
         isOpen: false,
-        toogleCart: () => set((state) => ({ isOpen: !state.isOpen })),
+
+        // Função para alternar o estado do carrinho com animação de saída
+        toggleCart: () => set((state) => {
+            if (state.isOpen) {
+                set({ isOpen: false });
+                return { isOpen: false }; // fecha o carrinho
+            } else {
+                return { isOpen: true }; // abre o carrinho
+            }
+        }),
+
         onCheckout: 'cart',
         setCheckout: (checkout) => set(() => ({ onCheckout: checkout })),
         paymentIntent: '',
-        setPaymentIntent: (paymentIntent) => set(() => ({ paymentIntent }))
+        setPaymentIntent: (paymentIntent: string) => set(() => ({ paymentIntent }))
     }), 
-    
     { name: 'cart-storage' }
 ));

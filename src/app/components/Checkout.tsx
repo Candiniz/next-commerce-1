@@ -19,7 +19,7 @@ export default function Checkout() {
     
     return (
         <div>
-            <h1>Checkout</h1>
+            <h1>IMPRESSÃO DA FERRAMENTA DE CHECKOUT</h1>
         </div>
     )
 }

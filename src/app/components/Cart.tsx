@@ -1,32 +1,20 @@
 'use client'
 
 import { useCartStore } from "@/store";
-import { useState, useEffect } from "react";
+
 import CartDrawer from "./CartDrawer";
 
 export default function Cart() {
     const useStore = useCartStore()
 
 
-    const [isLoading, setIsLoading] = useState(true); // Estado para controle de carregamento
 
-    useEffect(() => {
-        // Esse efeito é executado após o carregamento da página
-        const timeout = setTimeout(() => {
-            setIsLoading(false); // Após o carregamento, permite mostrar o carrinho
-        }, 1000); // Definindo um pequeno delay para garantir o carregamento completo
 
-        return () => clearTimeout(timeout);
-    }, []);
 
-    // Não mostra o carrinho enquanto está carregando
-    if (isLoading) {
-        return null; // Ou algum outro tipo de placeholder, se preferir
-    }
 
     return(
         <>
-            <div onClick={() => useStore.toogleCart()} className="flex items-center cursor-pointer relative">
+            <div onClick={() => useStore.toggleCart()} className="flex items-center cursor-pointer relative">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -47,7 +35,7 @@ export default function Cart() {
             </div>
 
             {
-                !useStore.isOpen && <CartDrawer />
+                useStore.isOpen && <CartDrawer />
             }
         </>
     )
