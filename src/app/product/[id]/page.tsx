@@ -4,9 +4,9 @@ import { formatPrice } from "@/lib/utils"
 import Stripe from "stripe"
 
 type ProductPageProps = {
-    params: {
-        id: string
-    }
+    params: Promise<{
+        id: string;
+    }>
 }
 
 async function getProduct(id: string) {
@@ -31,7 +31,9 @@ async function getProduct(id: string) {
 // Corrigido o tipo do parâmetro
 export default async function ProductPage({ params }: ProductPageProps) {
     
-    const { id } = params // O `params` agora é passado diretamente
+    const resolvedParams = await params;  // Resolva a Promise antes de acessar 'id'
+    const { id } = resolvedParams;  // Agora 'id' pode ser acessado corretamente
+    
     const product = await getProduct(id)
 
     return (
