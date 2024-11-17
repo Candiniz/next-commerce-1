@@ -1,4 +1,4 @@
-import Footer from "./components/Footer";
+
 import { fetchProducts } from "./actions";
 import InfiniteScroll from "./components/InfiniteScroll";
 
@@ -30,7 +30,7 @@ export default async function Home() {
 
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 }

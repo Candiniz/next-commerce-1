@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from '@clerk/localizations'
 import Hydrate from "./components/Hydrate";
+import Footer from "./components/Footer";
 
 
 export const metadata: Metadata = {
@@ -17,12 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider localization={ptBR}>
+    <ClerkProvider localization={ptBR} signUpFallbackRedirectUrl="/">
       <html lang="en">
         <body>
           <Hydrate>
             <Navbar />
             <main className="bg-slate-700 min-h-screen pt-16"> {children} </main>
+            <Footer />
           </Hydrate>
         </body>
       </html>
