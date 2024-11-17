@@ -13,7 +13,7 @@ export default async function SignUpPage() {
                     <SignUp
                         signInUrl="/sign-in"
                         fallbackRedirectUrl={'/'}  // Redirecionamento após o cadastro
-
+                        forceRedirectUrl={'/'}    // Garantir que o redirecionamento aconteça
                     />
                 </div>
             </div>
