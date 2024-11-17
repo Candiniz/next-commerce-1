@@ -1,10 +1,15 @@
 import { SignUp } from "@clerk/nextjs";
 
+type SignUpPageProps = {
+    searchParams: Promise<{
+        redirectUrl?: string;
+    }>;
+};
 
+export default async function SignUpPage({ searchParams }: SignUpPageProps) {
 
-export default async function SignUpPage() {
-
-
+    const resolvedSearchParams = await searchParams;
+    const redirectUrl = resolvedSearchParams.redirectUrl || '/default-redirect-url';
 
     return (
         <section className="py-14">
@@ -12,8 +17,7 @@ export default async function SignUpPage() {
                 <div className="flex justify-center">
                     <SignUp
                         signInUrl="/sign-in"
-                        fallbackRedirectUrl={'/'}  // Redirecionamento após o cadastro
-                        forceRedirectUrl={'/'}    // Garantir que o redirecionamento aconteça
+                        fallbackRedirectUrl={redirectUrl || '/'}  // Redirecionamento após o cadastro
                     />
                 </div>
             </div>
