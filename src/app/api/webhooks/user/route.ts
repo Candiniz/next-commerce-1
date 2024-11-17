@@ -20,7 +20,7 @@ type EventDataType = {
     first_name: string
     last_name: string
     email_addresses: EmailAddressType[]
-    primary_emaiil_address_id: string
+    primary_email_address_id: string
     attributes: Record <string, string | number>
 }
 
@@ -57,7 +57,9 @@ async function handler(request:Request) {
             id, 
             first_name, 
             last_name, 
-            email_addresses, 
+            email_addresses,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            primary_email_address_id, 
             ...attributes
         } = evt.data
 
