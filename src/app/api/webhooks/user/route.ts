@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { IncomingHttpHeaders } from "http";
-import { headers } from "next/headers";
+// import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { Webhook, WebhookRequiredHeaders } from "svix";
 import Stripe from "stripe";
@@ -33,11 +33,11 @@ async function handler(request:Request) {
     const payload = await request.json()
     console.log("Payload recebido:", JSON.stringify(payload, null, 2));
 
-    const headersList = headers()
+    const headersList = request.headers
     console.log("Headers da requisição:", request.headers);
 
     const heads = {
-        'svix-id': (await headersList).get('svix-timestamp'),
+        'svix-id': (await headersList).get('svix-id'),
         'svix-timestamp': (await headersList).get('svix-timestamp'),
         'svix-signature': (await headersList).get('svix-signature'),
     }
