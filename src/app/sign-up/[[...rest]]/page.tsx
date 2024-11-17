@@ -1,4 +1,4 @@
-import { SignUp } from "@clerk/nextjs"
+import { SignUp } from "@clerk/nextjs";
 
 type SignUpPageProps = {
     searchParams: Promise<{
@@ -7,17 +7,16 @@ type SignUpPageProps = {
 };
 
 export default async function SignUpPage({ searchParams }: SignUpPageProps) {
-
     const resolvedSearchParams = await searchParams;
-    const redirectUrl = resolvedSearchParams.redirectUrl || '/default-redirect-url';
+    const redirectUrl = resolvedSearchParams.redirectUrl || document.referrer || '/';
 
     return (
         <section className="py-14">
             <div className="container mx-auto px-4">
                 <div className="flex justify-center">
-                    <SignUp signInUrl="/sign-in" fallbackRedirectUrl={redirectUrl || '/'} />
+                    <SignUp signInUrl="/sign-in" fallbackRedirectUrl={redirectUrl} />
                 </div>
             </div>
         </section>
-    )
+    );
 }
