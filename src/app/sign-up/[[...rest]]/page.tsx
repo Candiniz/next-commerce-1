@@ -18,6 +18,7 @@ export default async function SignUpPage({ searchParams }: SignUpPageProps) {
                     <SignUp
                         signInUrl="/sign-in"
                         fallbackRedirectUrl={redirectUrl || '/'}  // Redirecionamento após o cadastro
+                        forceRedirectUrl={'/'}    // Garantir que o redirecionamento aconteça
                     />
                 </div>
             </div>
