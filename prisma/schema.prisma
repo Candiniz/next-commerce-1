@@ -16,7 +16,7 @@ datasource db {
 
 model User {
   id               Int      @id @default(autoincrement())
-  externalId       String   @unique
+  externalId       String?   @unique
   attributes       Json
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
@@ -32,7 +32,7 @@ model Order {
   currency        String
   status          String
   createdDate     DateTime  @default(now())
-  paymentIntendID String?   @unique
+  paymentIntentID String?   @unique
   products        Product[]
 }
 

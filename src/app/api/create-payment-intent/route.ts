@@ -20,15 +20,15 @@ export async function POST(req: Request) {
         return new Response("Unauthorized", { status: 401 })
     }
 
-    const customerIdTemp = 'cus_RDt10pdiF9ibpk'
+    const customerIdTemp = 'cus_REju6XTOzCZU9n'
     console.log('Customer ID Temp:', customerIdTemp)
 
-
+    console.log('User ID:', userId );
 
     const total = calculateOrderAmount(items)
 
     const orderData = {
-        user: { connect: { id: 1 } },
+        user: { connect: { id: userId }  },
         amount: total,
         currency: 'brl',
         status: 'pending',
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
     
             // Encontre a ordem existente
             const existing_order = await prisma.order.findFirst({
-                where: { paymentIntendID: payment_intent_id },
+                where: { paymentIntentID: payment_intent_id },
                 include: { products: true }
             });
     
@@ -72,7 +72,7 @@ export async function POST(req: Request) {
     
                 // Atualize a ordem com os novos produtos
                 const updated_order = await prisma.order.update({
-                    where: { paymentIntendID: payment_intent_id },
+                    where: { paymentIntentID: payment_intent_id },
                     data: {
                         products: {
                             create: items.map((item: ProductType) => ({
@@ -102,6 +102,7 @@ export async function POST(req: Request) {
         })
 
         orderData.paymentIntentID = paymentIntent.id
+
 
         const newOrder = await prisma.order.create({
             data: orderData
