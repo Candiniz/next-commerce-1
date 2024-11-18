@@ -6,52 +6,81 @@ import { useCallback, useEffect, useState } from "react";
 import Product from "./Product";
 import { fetchProducts } from "../actions";
 
+export default function InfiniteScroll({
+  initialProducts,
+  category,
+}: {
+  initialProducts: ProductType[];
+  category: string;
+}) {
+  const [products, setProducts] = useState<ProductType[]>(initialProducts);
+  const [hasMore, setHasMore] = useState<boolean>(true); // Flag para verificar se há mais produtos
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Flag para controlar o estado de carregamento
 
-export default function InfiniteScroll({ initialProducts }: { initialProducts: ProductType[] }) {
-    const [products, setProducts] = useState<ProductType[]>(initialProducts);
-    const [hasMore, setHasMore] = useState<boolean>(true);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [ref, inView] = useInView({
+    threshold: 0,
+    triggerOnce: false
+  });
 
-    const [ref, inView] = useInView({
-        threshold: 0,
-        triggerOnce: false
+  const lastProductId = products[products.length - 1]?.id;
+
+  const loadMoreProducts = useCallback(async () => {
+    // Verifica se há mais produtos para carregar e se não está carregando
+    if (isLoading || !hasMore) return;
+
+    console.log('Iniciando carregamento...');
+
+    setIsLoading(true); // Indica que o carregamento começou
+
+    const { formatedProducts, has_more } = await fetchProducts({
+      lastProductId,
+      category, // Passando a categoria para filtrar os produtos
     });
 
-    const lastProductId = products[products.length - 1]?.id;
+    console.log('Produtos recebidos:', formatedProducts);
+    console.log('Tem mais produtos:', has_more);
 
-    const loadMoreProducts = useCallback(async () => {
-        setIsLoading(true);
-        const { formatedProducts, has_more } = await fetchProducts({ lastProductId });
+    // Atualiza o estado com os novos produtos
+    if (formatedProducts && formatedProducts.length > 0) {
+      setProducts((prevProducts) => {
+        return [...prevProducts, ...formatedProducts.map(product => ({ ...product, isNew: true }))];
+      });
+      setHasMore(has_more); // Atualiza a flag de "tem mais produtos"
+    } else {
+      setHasMore(false); // Se não houver produtos, define que não há mais itens
+    }
 
-        if (formatedProducts) {
-            setProducts((prevProducts) => {
-                return [...prevProducts, ...formatedProducts.map(product => ({ ...product, isNew: true }))];
-            });
-            setHasMore(has_more);
-        }
+    setIsLoading(false); // Define que o carregamento terminou
+  }, [lastProductId, category, isLoading, hasMore]);
 
-        setIsLoading(false);
-    }, [lastProductId]);
+  useEffect(() => {
+    // Se estiver visível, e não estiver carregando e tiver mais produtos, carrega mais
+    if (inView && hasMore && !isLoading) {
+      loadMoreProducts();
+    }
+  }, [inView, hasMore, isLoading, loadMoreProducts]);
 
-    useEffect(() => {
-        if (inView && hasMore && !isLoading) {
-            loadMoreProducts();
-        }
-    }, [hasMore, inView, isLoading, loadMoreProducts]);
+  // Se não houver produtos carregados, exibe a mensagem de carregamento
+  if (!products) return <div>Carregando...</div>;
 
-    if (!products) return <div>Carregando...</div>;
+  return (
+    <div className="w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {products.map((product) => (
+          <Product key={product.id} product={product} isNew={false} />
+        ))}
+      </div>
 
-    return (
-        <>
-            {products.map((product, index) => (
-                <Product key={product.id} product={product} isNew={product.isNew || index >= initialProducts.length} />
-            ))}
-
-            {hasMore && (
-                <div className="flex items-center font-bold" ref={ref}>
-                    Carregando mais registros...
-                </div>
-            )}
-        </>
-    );
+      {/* Condição para exibir a mensagem de carregamento ou de fim de lista */}
+      {hasMore ? (
+        <div className="w-full border items-center m-auto font-bold text-center my-5" ref={ref}>
+          Carregando mais registros...
+        </div>
+      ) : (
+        <div className="w-full border-top border-pink-200 border items-center m-auto font-bold text-center my-8">
+          
+        </div>
+      )}
+    </div>
+  );
 }

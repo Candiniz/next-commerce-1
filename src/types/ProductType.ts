@@ -7,4 +7,5 @@ export type ProductType = {
     description: string | null;
     currency?: string;
     isNew?: boolean;
+    category?: string;
 }

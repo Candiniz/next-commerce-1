@@ -31,7 +31,7 @@ export default function Cart() {
                 <circle cx="20" cy="21" r="1" />
                 <path d="M1 1h4l1.68 8.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
             </svg>
-            <span className="bg-black text-sm font-bold rounded-full h-5 w-5 flex items-center justify-center leading-5 absolute left-4 bottom-3">{useStore.cart?.length}</span>
+            <span className="bg-pink-400 text-sm text-black font-bold rounded-full h-5 w-5 flex items-center justify-center leading-5 absolute left-4 bottom-3">{useStore.cart?.length}</span>
             </div>
 
             {

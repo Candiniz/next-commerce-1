@@ -24,8 +24,8 @@ export default function Product({ product, isNew }: ProductProps) {
     return (
         <Link href={`/product/${product.id}`}>
             <div
-                className={`flex flex-col shadow-lg h-[550px] bg-slate-800 p-5 rounded-lg 
-                transition-all duration-1000 ease-out 
+                className={`flex flex-col shadow-lg h-[550px]  p-5 rounded-lg 
+                transition-all duration-1000 ease-out w-full 
                 ${isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} 
                 transform
                 hover:scale-102 hover:transition-transform`}
@@ -34,8 +34,8 @@ export default function Product({ product, isNew }: ProductProps) {
                     <ProductImage product={product} fill />
                 </div>
                 <div className="flex flex-col justify-between font-bold my-3">
-                    <p className="text-base font-semibold max-w-full">{product.name}</p>
-                    <p className="text-xl text-teal-300 mt-2">{formatPrice(product.price)}</p>
+                    <p className="text-base font-semibold max-w-full text-gray-700">{product.name}</p>
+                    <p className="text-xl text-pink-500 mt-2">{formatPrice(product.price)}</p>
                 </div>
                 <AddCart product={product} />
             </div>
