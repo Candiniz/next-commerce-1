@@ -21,12 +21,14 @@ async function handler(request: Request) {
 
     switch (event.type) {
         case "payment_intent.created":
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const payment_intent = event.data.object as Stripe.PaymentIntent
             console.log("created")
             break
         case "charge.succeeded":
             const charge = event.data.object as Stripe.Charge
             if (typeof charge.payment_intent === "string") {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const order = await prisma.order.update({
                     where: { paymentIntentID: charge.payment_intent },
                     data: { status: "complete" },
