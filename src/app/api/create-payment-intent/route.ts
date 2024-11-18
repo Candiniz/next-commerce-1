@@ -20,15 +20,18 @@ export async function POST(req: Request) {
         return new Response("Unauthorized", { status: 401 })
     }
 
-    const customerIdTemp = 'cus_REju6XTOzCZU9n'
-    console.log('Customer ID Temp:', customerIdTemp)
+    const currentUser = await prisma.user.findUnique({
+        where: { externalId: userId }
+    })
 
-    console.log('User ID:', userId );
+    if (!currentUser) {
+        return new Response("User not found", { status: 404 })
+    }
 
     const total = calculateOrderAmount(items)
 
     const orderData = {
-        user: { connect: { id: 1 }  },
+        user: { connect: { id: currentUser.id }  },
         amount: total,
         currency: 'brl',
         status: 'pending',

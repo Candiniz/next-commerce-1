@@ -6,6 +6,7 @@ import Image from "next/image"
 import CheckoutButton from "./CheckoutButton"
 import Checkout from "./Checkout"
 import { motion, AnimatePresence } from "framer-motion"
+import OrderCompleted from "./OrderCompleted"
 
 export default function CartDrawer() {
     const useStore = useCartStore()
@@ -63,7 +64,17 @@ export default function CartDrawer() {
                             <>
                                 {
                                     useStore.cart.map((item) => (
-                                        <div key={item.id} className="flex gap-4 py-4">
+                                        <motion.div 
+                                            animate={{ scale: 1, rotateZ: 0, opacity: 1 }}
+                                            initial={{ scale: 0.5, rotateZ: -30, opacity: 0 }}
+                                            exit={{ scale: 0.5, rotateZ: 30, opacity: 0 }}
+                                            transition={{
+                                                delay: 0.2, // Ajuste o valor do delay em segundos
+                                                duration: 0.5, // Durabilidade da animação (ajuste conforme necessário)
+                                                ease: "easeOut" // Tipo de transição (opcional)
+                                            }}
+                                            key={item.id} className="flex gap-4 py-4">
+                                        
                                             <Image 
                                                 src={item.image}
                                                 alt={item.name}
@@ -89,13 +100,12 @@ export default function CartDrawer() {
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </motion.div>
                                     ))
                                 }
                             </>
                             )
                         }
-
                         {
                             useStore.cart.length > 0 && useStore.onCheckout === 'cart' && (
                                 <CheckoutButton totalPrice={totalPrice} />
@@ -104,6 +114,11 @@ export default function CartDrawer() {
                         {
                             useStore.onCheckout === 'checkout' && (
                                 <Checkout />
+                            )
+                        }
+                        {
+                            useStore.onCheckout === 'success' && (
+                                <OrderCompleted />
                             )
                         }
                     </motion.div>
