@@ -1,7 +1,7 @@
 'use client'
 
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js"
-import { Elements, useStripe } from "@stripe/react-stripe-js"
+import { Elements } from "@stripe/react-stripe-js"
 import { useCartStore } from "@/store"
 import { useEffect, useState } from "react"
 import CheckoutForm from "./CheckoutForm"
@@ -12,9 +12,7 @@ export default function Checkout() {
     const cartStore = useCartStore()
     const [clientSecret, setClientSecret] = useState('')
 
-    // Hook do Stripe
-    const stripe = useStripe() // Aqui acessamos o objeto Stripe do hook
-
+    // Busca o PaymentIntent e define o clientSecret
     useEffect(() => {
         fetch('/api/create-payment-intent', {
             method: 'POST',
@@ -26,7 +24,6 @@ export default function Checkout() {
                 payment_intent_id: cartStore.paymentIntent
             })
         }).then((res) => res.json()).then((data) => {
-            console.log("Payment Intent:", data.paymentIntent); // Verificando o pagamento
             cartStore.setPaymentIntent(data.paymentIntent.id)
             setClientSecret(data.paymentIntent.client_secret)
         })
@@ -35,9 +32,9 @@ export default function Checkout() {
 
     // Log para depuração
     useEffect(() => {
-        console.log("Stripe Loaded:", stripe); // Deve mostrar o objeto Stripe se carregado corretamente
-        console.log("Client Secret:", clientSecret); // Deve mostrar o clientSecret gerado
-    }, [stripe, clientSecret]);
+        console.log("Stripe Loaded:", stripePromise); // Verificando o Stripe
+        console.log("Client Secret:", clientSecret); // Verificando o clientSecret
+    }, [clientSecret]);
 
     const options: StripeElementsOptions = {
         clientSecret,
@@ -49,11 +46,13 @@ export default function Checkout() {
 
     return (
         <>
-            {clientSecret && stripe ? (
+            {/* Verifica se o clientSecret foi carregado e se o Stripe está disponível */}
+            {clientSecret && (
                 <Elements options={options} stripe={stripePromise}>
                     <CheckoutForm clientSecret={clientSecret} />
                 </Elements>
-            ) : (
+            )}
+            {!clientSecret && (
                 <div>
                     <h1>Carregando...</h1>
                 </div>
