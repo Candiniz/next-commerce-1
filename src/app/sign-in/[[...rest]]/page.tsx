@@ -8,7 +8,7 @@ type SignInPageProps = {
 
 export default async function SignInPage({ searchParams }: SignInPageProps) {
     const resolvedSearchParams = await searchParams;
-    const redirectUrl = resolvedSearchParams.redirectUrl || document.referrer || '/';
+    const redirectUrl = resolvedSearchParams.redirectUrl || '/';
 
     return (
         <section className="py-14">
