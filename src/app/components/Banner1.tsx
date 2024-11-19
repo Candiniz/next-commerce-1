@@ -160,12 +160,12 @@ export default function Banner1() {
             <span className="absolute top-0 left-0">{typedText.p}</span>
           </p>
           <div className="flex justify-start md:ml-6 gap-4 lg:gap-6">
-            <a href="">
+            <a href="https://www.instagram.com/sobrinha_artesanatos/" target="_blank">
                 <AiFillInstagram className="fill-[#8a8377] text-[5.3vw] sm:text-[4.2vw] md:text-[3.2vw] lg:text-[2.7vw] hover:fill-pink-500
                 transition-all duration-500" /></a>
-            <a href=""><FaFacebook className="fill-[#8a8377] text-[5vw] sm:text-[4vw] md:text-[3vw] lg:text-[2.5vw] hover:fill-pink-500
+            <a href="https://www.facebook.com/sobrinha_artesanatos" target="_blank"><FaFacebook className="fill-[#8a8377] text-[5vw] sm:text-[4vw] md:text-[3vw] lg:text-[2.5vw] hover:fill-pink-500
                 transition-all duration-500" /></a>
-            <a href=""><IoLogoWhatsapp className="fill-[#8a8377] text-[5vw] sm:text-[4vw] md:text-[3vw] lg:text-[2.5vw] hover:fill-pink-500
+            <a href="https://wa.me/5511980187457?text=Olá!%20Gostaria%20de%20fazer%20uma%20encomenda!" target="_blank"><IoLogoWhatsapp className="fill-[#8a8377] text-[5vw] sm:text-[4vw] md:text-[3vw] lg:text-[2.5vw] hover:fill-pink-500
                 transition-all duration-500" /></a>
           </div>
         </div>

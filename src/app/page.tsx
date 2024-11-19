@@ -59,11 +59,11 @@ export default function Page() {
             />
       </div>
       <div className="h-4 bg-pink-500 w-full shadow-2xl shadow-black"></div>
-      <div className="h-20 bg-pink-400 flex justify-evenly w-full px-3 shadow-inner">
-        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><FaShoppingBag /> Bolsas & Acessórios</button>
-        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><MdTableBar /> Jogos Americanos</button>
-        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><GiLargeDress /> Vestidos & Saias</button>
-        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><FaUmbrellaBeach /> Biquinis & Praia</button>
+      <div className="h-fit bg-pink-400 flex justify-evenly w-full px-3 shadow-inner py-4">
+        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><FaShoppingBag /> Bolsas &<br /> Acessórios</button>
+        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><MdTableBar /> Jogos<br /> Americanos</button>
+        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><GiLargeDress /> Vestidos &<br /> Saias</button>
+        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><FaUmbrellaBeach /> Biquinis &<br /> Praia</button>
       </div>
 
 
@@ -75,13 +75,17 @@ export default function Page() {
       <div className="container mx-auto shadow-2xl bg-white min-h-screen pt-8 px-4 w-[95%] sm:w-4/5 md:w-4/5 lg:w-2/3">
         {/* Seção de Promoções */}
         <div className="container mx-auto min-h-screen pt-8 px-4">
-          <h1 className="text-center text-2xl font-bold mb-6">Produtos em Oferta</h1>
+          <div className="w-full h-fit bg-pink-500 mb-5 rounded-md">
+            <h1 className="text-center text-2xl font-bold mb-6 text-white">Bolsas & Acessórios</h1>
+          </div>
           <InfiniteScroll initialProducts={formatedProducts} category="Bolsas" />
         </div>
 
         {/* Seção de Novidades */}
         <div className="container mx-auto min-h-screen pt-8 px-4">
-          <h1 className="text-center text-2xl font-bold mb-6">Novidades</h1>
+        <div className="w-full h-fit bg-pink-500 mb-5 rounded-md">
+            <h1 className="text-center text-2xl font-bold mb-6 text-white">Jogos Americanos</h1>
+          </div>
           <InfiniteScroll initialProducts={formatedProductsNovidades} category="JogoAmericano" />
         </div>
       </div>
