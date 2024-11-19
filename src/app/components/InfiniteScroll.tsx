@@ -1,5 +1,8 @@
 'use client'
 
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+
+
 import { useInView } from "react-intersection-observer"
 import { ProductType } from "@/types/ProductType";
 import { useCallback, useEffect, useState } from "react";
@@ -73,9 +76,10 @@ export default function InfiniteScroll({
 
       {/* Condição para exibir a mensagem de carregamento ou de fim de lista */}
       {hasMore ? (
-        <div className="w-full border items-center m-auto font-bold text-center my-5" ref={ref}>
-          Carregando mais registros...
-        </div>
+        <>
+            <div className="flex w-full justify-center items-center m-auto font-bold text-center my-15" ref={ref}></div>
+            <AiOutlineLoading3Quarters className='fill-pink-500 animate-spin h-[100px] w-[100px] mt-10 m-auto' />
+        </>
       ) : (
         <div className="w-full border-top border-pink-200 border items-center m-auto font-bold text-center my-8">
           

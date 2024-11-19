@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from '@clerk/localizations'
 import Hydrate from "./components/Hydrate";
 import Footer from "./components/Footer";
+import { roboto } from "./fonts/fonts";
 
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider localization={ptBR} signUpFallbackRedirectUrl="/">
       <html lang="en">
-        <body>
+        <body className={`${roboto.className}`}>
           <Hydrate>
             <Navbar />
             <main className="bg-pink-200 min-h-screen pt-16"> {children} </main>

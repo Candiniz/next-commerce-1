@@ -32,10 +32,11 @@ export default function Page() {
 
     fetchNovidades();
   }, []); // Só faz a requisição ao carregar o componente
+  
 
   return (
     <>
-      <div className="w-full flex items-center">
+      <div className="w-full flex items-center z-10">
             <video
               src="/mainvideo1.mp4"
               autoPlay
@@ -45,8 +46,14 @@ export default function Page() {
               style={{ width: '100%', height: 'auto' }}
             />
       </div>
-      <div className="h-4 bg-pink-500 w-full"></div>
-      <div className="container mx-auto bg-white min-h-screen pt-8 px-4 w-[95%] sm:w-4/5 md:w-4/5 lg:w-2/3">
+      <div className="h-4 bg-pink-500 w-full shadow-2xl shadow-black"></div>
+      <div className="h-20 bg-pink-400 flex justify-evenly w-full px-3 shadow-inner">
+        <div className="h-full flex items-center justify-center w-1/4 hover:bg-pink-300 text-center tx-sm font-bold transition-all duration-100 md:text-2xl">Bolsas & Acessórios</div>
+        <div className="h-full flex items-center justify-center w-1/4 hover:bg-pink-300 text-center tx-sm font-bold transition-all duration-100 md:text-2xl">Jogos Americanos</div>
+        <div className="h-full flex items-center justify-center w-1/4 hover:bg-pink-300 text-center tx-sm font-bold transition-all duration-100 md:text-2xl">Vestidos & Saias</div>
+        <div className="h-full flex items-center justify-center w-1/4 hover:bg-pink-300 text-center tx-sm font-bold transition-all duration-100 md:text-2xl">Biquinis & Praia</div>
+      </div>
+      <div className="container mx-auto shadow-2xl bg-white min-h-screen pt-8 px-4 w-[95%] sm:w-4/5 md:w-4/5 lg:w-2/3">
         {/* Seção de Promoções */}
         <div className="container mx-auto min-h-screen pt-8 px-4">
           <h1 className="text-center text-2xl font-bold mb-6">Produtos em Oferta</h1>

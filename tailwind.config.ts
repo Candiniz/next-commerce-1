@@ -17,8 +17,18 @@ const config: Config = {
         104: '1.04',
         105: '1.05',
       },
+      keyframes: {
+        fadeZoom: {
+          '0%': { opacity: '0', transform: 'scale(0.9)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+      },
+      animation: {
+        'fade-zoom': 'fadeZoom 0.6s ease-out',
+      },
     },
   },
   plugins: [],
 };
+
 export default config;

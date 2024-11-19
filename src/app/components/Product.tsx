@@ -3,32 +3,47 @@ import ProductImage from "./ProductImage"
 import { formatPrice } from "@/lib/utils"
 import AddCart from "./AddCart"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 type ProductProps = {
     product: ProductType;
     isNew: boolean; // Adiciona uma propriedade que indica se o produto é novo
 }
 
-export default function Product({ product, isNew }: ProductProps) {
+export default function Product({ product }: ProductProps) {
     const [isMounted, setIsMounted] = useState(false);
+    const productRef = useRef(null);
 
     useEffect(() => {
-        if (isNew) {
-            setTimeout(() => setIsMounted(true), 100); // Adiciona um pequeno delay para a animação
-        } else {
-            setIsMounted(true);
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsMounted(true);
+                }
+            },
+            { threshold: 0.5 } // Configura para ativar a animação quando 50% do item for visível
+        );
+
+        if (productRef.current) {
+            observer.observe(productRef.current);
         }
-    }, [isNew]);
+
+        return () => {
+            if (productRef.current) {
+                observer.unobserve(productRef.current);
+            }
+        };
+    }, []);
 
     return (
         <Link href={`/product/${product.id}`}>
             <div
-                className={`flex flex-col shadow-lg h-[550px]  p-5 rounded-lg 
-                transition-all duration-1000 ease-out w-full 
-                ${isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} 
-                transform
-                hover:scale-102 hover:transition-transform`}
+                ref={productRef} // Refere-se ao elemento para monitoramento
+                className={`flex flex-col shadow-lg h-[550px] p-5 rounded-lg 
+                    transition-all duration-1000 ease-out w-full 
+                    ${isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} 
+                    transform
+                    hover:scale-102 hover:transition-transform`}
             >
                 <div className="relative h-auto flex-1 overflow-hidden">
                     <ProductImage product={product} fill />
@@ -40,5 +55,5 @@ export default function Product({ product, isNew }: ProductProps) {
                 <AddCart product={product} />
             </div>
         </Link>
-    )
+    );
 }

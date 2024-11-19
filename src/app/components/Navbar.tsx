@@ -3,6 +3,8 @@ import Link from "next/link";
 import Cart from "./Cart";
 import Image from "next/image";
 import sobrinhaLogoNav from "../../photos/sobrinha-logo-nav.png"
+import { BiLogInCircle } from "react-icons/bi";
+
 
 function Navbar() {
 
@@ -22,9 +24,21 @@ function Navbar() {
           </SignedIn>
 
           <SignedOut>
-            <SignInButton mode="modal">
-              <button className="border rounded-md border-gray-400 px-3 py-2">Fazer Login</button>
-            </SignInButton>
+            <div className="hidden sm:block"> {/* Exibe o botão de login apenas em telas maiores */}
+              <SignInButton mode="modal">
+                <button className="border rounded-md border-gray-400 px-3 py-2">
+                  Fazer Login
+                </button>
+              </SignInButton>
+            </div>
+
+            <div className="block sm:hidden"> {/* Exibe o ícone apenas em telas pequenas */}
+              <SignInButton mode="modal">
+                <button className="text-2xl">
+                  <BiLogInCircle />
+                </button>
+              </SignInButton>
+            </div>
           </SignedOut>
 
         </div>
