@@ -13,7 +13,7 @@ export default function AddCart({ product }: { product: ProductType }) {
                 e.stopPropagation(); 
                 addProduct(product); 
             }}
-            className="w-full mt-auto rounded-md bg-pink-500 text-white p-3.5 py-2.5 tx-sm text-center">
+            className="w-full mt-auto rounded-md bg-pink-500 text-white p-3.5 py-2.5 tx-sm text-center text-sm sm:text-base">
                 Adicionar ao Carrinho
         </button>
     )

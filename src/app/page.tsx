@@ -1,9 +1,21 @@
 'use client'
 
+import "./globals.css";
+
 import { useEffect, useState } from "react";
 import InfiniteScroll from "./components/InfiniteScroll"; // Componente que exibe os produtos
 import { fetchProducts } from "./actions"; // Função para buscar os produtos do Stripe
 import { ProductType } from "@/types/ProductType";
+
+
+import { FaShoppingBag } from "react-icons/fa";
+import { MdTableBar } from "react-icons/md";
+import { GiLargeDress } from "react-icons/gi";
+import { FaUmbrellaBeach } from "react-icons/fa";
+import Banner1 from "./components/Banner1";
+
+
+
 
 export default function Page() {
   const [formatedProducts, setFormatedProducts] = useState<ProductType[]>([]); // Produtos de Promoções
@@ -48,11 +60,18 @@ export default function Page() {
       </div>
       <div className="h-4 bg-pink-500 w-full shadow-2xl shadow-black"></div>
       <div className="h-20 bg-pink-400 flex justify-evenly w-full px-3 shadow-inner">
-        <div className="h-full flex items-center justify-center w-1/4 hover:bg-pink-300 text-center tx-sm font-bold transition-all duration-100 md:text-2xl">Bolsas & Acessórios</div>
-        <div className="h-full flex items-center justify-center w-1/4 hover:bg-pink-300 text-center tx-sm font-bold transition-all duration-100 md:text-2xl">Jogos Americanos</div>
-        <div className="h-full flex items-center justify-center w-1/4 hover:bg-pink-300 text-center tx-sm font-bold transition-all duration-100 md:text-2xl">Vestidos & Saias</div>
-        <div className="h-full flex items-center justify-center w-1/4 hover:bg-pink-300 text-center tx-sm font-bold transition-all duration-100 md:text-2xl">Biquinis & Praia</div>
+        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><FaShoppingBag /> Bolsas & Acessórios</button>
+        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><MdTableBar /> Jogos Americanos</button>
+        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><GiLargeDress /> Vestidos & Saias</button>
+        <button className="h-full flex flex-col gap-2 items-center justify-center w-1/4 hover:bg-pink-300 text-center text-xs  transition-all duration-100 md:text-lg cursor-pointer"><FaUmbrellaBeach /> Biquinis & Praia</button>
       </div>
+
+
+
+      <Banner1 />
+
+
+
       <div className="container mx-auto shadow-2xl bg-white min-h-screen pt-8 px-4 w-[95%] sm:w-4/5 md:w-4/5 lg:w-2/3">
         {/* Seção de Promoções */}
         <div className="container mx-auto min-h-screen pt-8 px-4">
