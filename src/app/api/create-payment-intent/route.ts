@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     const total = calculateOrderAmount(items)
 
     const orderData = {
-        user: { connect: { id: currentUser.id }  },
+        user: { connect: { id: currentUser.id } },
         amount: total,
         currency: 'brl',
         status: 'pending',
@@ -49,18 +49,18 @@ export async function POST(req: Request) {
 
     if (payment_intent_id) {
         const current_intent = await stripe.paymentIntents.retrieve(payment_intent_id);
-    
+
         if (current_intent) {
             const updated_intent = await stripe.paymentIntents.update(payment_intent_id, {
                 amount: total
             });
-    
+
             // Encontre a ordem existente
             const existing_order = await prisma.order.findFirst({
                 where: { paymentIntentID: payment_intent_id },
                 include: { products: true }
             });
-    
+
             if (existing_order) {
                 // Exclua os produtos associados à ordem existente
                 await prisma.product.deleteMany({
@@ -72,7 +72,7 @@ export async function POST(req: Request) {
                         }
                     }
                 });
-    
+
                 // Atualize a ordem com os novos produtos
                 const updated_order = await prisma.order.update({
                     where: { paymentIntentID: payment_intent_id },
@@ -111,6 +111,25 @@ export async function POST(req: Request) {
             data: orderData
         })
         console.log('New Order:', newOrder)
+
+
+        const sendToPowerAutomate = async () => {
+            const name = (currentUser.attributes as any)?.["first_name"] ?? "Cliente";
+            const email = (currentUser.attributes as any)?.["email"] ?? "sem-email@exemplo.com";
+
+            const product = items.map((item: ProductType) => item.name).join(", ");
+
+            await fetch("https://prod-102.westus.logic.azure.com:443/workflows/11747c4a42cf4ea5969d6519b7261c2e/triggers/manual/paths/invoke?api-version=2016-06-01", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, email, product }),
+            });
+
+        };
+
+        await sendToPowerAutomate();
 
         return NextResponse.json({ paymentIntent }, { status: 200 })
     }
