@@ -114,8 +114,8 @@ export async function POST(req: Request) {
 
 
         const sendToPowerAutomate = async () => {
-            const name = (currentUser.attributes as any)?.["first_name"] ?? "Cliente";
-            const email = (currentUser.attributes as any)?.["email"] ?? "sem-email@exemplo.com";
+            const name = (currentUser.attributes as string)?.["first_name"] ?? "Cliente";
+            const email = (currentUser.attributes as string)?.["email"] ?? "sem-email@exemplo.com";
 
             const product = items.map((item: ProductType) => item.name).join(", ");
 
