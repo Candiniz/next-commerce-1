@@ -4,6 +4,12 @@ import { auth } from "@clerk/nextjs/server"
 import prisma from "@/lib/prisma"
 import { NextResponse } from "next/server"
 
+interface UserAttributes {
+    first_name?: string;
+    email?: string;
+    // outros campos que existirem...
+}
+
 const calculateOrderAmount = (items: ProductType[]) => {
     const totalPrice = items.reduce((acc, item) => {
         return acc + item.price! * item.quantity!
@@ -114,8 +120,10 @@ export async function POST(req: Request) {
 
 
         const sendToPowerAutomate = async () => {
-            const name = (currentUser.attributes as string)?.["first_name"] ?? "Cliente";
-            const email = (currentUser.attributes as string)?.["email"] ?? "sem-email@exemplo.com";
+            const attrs = currentUser.attributes as UserAttributes;
+
+            const name = attrs?.first_name ?? "Cliente";
+            const email = attrs?.email ?? "sem-email@exemplo.com";
 
             const product = items.map((item: ProductType) => item.name).join(", ");
 
