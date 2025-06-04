@@ -39,7 +39,7 @@ export default function Product({ product }: ProductProps) {
         <Link href={`/product/${product.id}`}>
             <div
                 ref={productRef} // Refere-se ao elemento para monitoramento
-                className={`flex flex-col shadow-lg h-[550px] p-5 rounded-lg 
+                className={`flex flex-col border-[#ac9f8a] border-[1px] h-[550px] p-5 
                     transition-all duration-1000 ease-out w-full 
                     ${isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-95'} 
                     transform

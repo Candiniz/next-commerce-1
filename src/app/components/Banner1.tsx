@@ -76,7 +76,7 @@ export default function Banner1() {
   }, [loopIndex, loopTexts, showLoopText]);
 
   return (
-    <div className={`relative shadow-2xl w-[95%] sm:w-4/5 md:w-4/5 lg:w-2/3 mx-auto ${styles.reflexoBrilhante}`}>
+    <div className={`relative w-[95%] sm:w-4/5 md:w-4/5 lg:w-2/3 mx-auto ${styles.reflexoBrilhante}`}>
       <Image alt="Produtos Sob Medida" src={banner1} className="w-full" />
       <div
         className="
