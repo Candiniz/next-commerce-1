@@ -4,8 +4,8 @@ import Navbar from "./components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from '@clerk/localizations'
 import Hydrate from "./components/Hydrate";
-import Footer from "./components/Footer";
 import { lora } from "./fonts/fonts";
+import ScrollAwareFooter from "./components/ScrollAwareFooter";
 
 
 export const metadata: Metadata = {
@@ -24,8 +24,8 @@ export default function RootLayout({
         <body className={`${lora.className}`}>
           <Hydrate>
             <Navbar />
-            <main className="bg-pink-200 min-h-screen pt-16"> {children} </main>
-            <Footer />
+            <main className="bg-[#e0dad4] min-h-screen pt-16"> {children} </main>
+            <ScrollAwareFooter />
           </Hydrate>
         </body>
       </html>
